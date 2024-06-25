@@ -11,6 +11,9 @@ import numpy as np
 import pytest
 
 class TestClassOneDim():
+    '''
+    Testing class for the OneDim class
+    '''
     
     def setup_method(self):
         x_min = 0
