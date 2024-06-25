@@ -15,7 +15,7 @@ import OneDim as D1
 # Distance units in meters
 # Weight units in grams
 
-method = 4
+method = 20
 
 x_min = 0
 x_max = 200
@@ -42,7 +42,7 @@ fontsize = 12
 x = np.linspace(x_min,x_max,x_nstep)
 t = np.linspace(t_min,t_max,t_nstep)
 
-oneD = D1.OneDim(method = method, q = q, n = n, x = x, t = t, m0 = m0, c0 = c0, c1 = c1, R = R, mu = mu, D_eff = D_eff, al = al, h = h)
+oneD = D1.OneDim(method = method, q = q, n = n, x = x, t = t, al = al, D_eff = D_eff, m0 = m0, c0 = c0, c1 = c1, R = R, mu = mu, h = h)
 results = oneD.transport()
 
 plt.figure(dpi = 300)
@@ -73,3 +73,4 @@ plt.show()
 #for i in range(len(sum_array)):
 #    sum_array[i] = np.sum(results[i,:])
 #plt.plot(t, sum_array)
+
