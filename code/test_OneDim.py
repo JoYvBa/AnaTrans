@@ -18,10 +18,10 @@ class TestClassOneDim():
     def setup_method(self):
         x_min = 0
         x_max = 200
-        x_nstep = 101
+        x_nstep = 51
         t_min = 0
         t_max = 1500
-        t_nstep = 101
+        t_nstep = 51
     
         self.q = 0.05
         self.n = 0.33
@@ -39,12 +39,11 @@ class TestClassOneDim():
     '''
     def test_inf_flow_pulse(self):
         method = 1
-        oneD = D1.OneDim(method = method, q = self.q, n = self.n, x = self.x, t = self.t, al = self.al, D_eff = self.D_eff, m0 = self.m0, c0 = self.c0, c1 = self.c1, R = self.R, mu = self.mu, h = self.h)
-        results = oneD.transport()
+        results = D1.transport(method = method, q = self.q, n = self.n, x = self.x, t = self.t, al = self.al, D_eff = self.D_eff, m0 = self.m0, R = self.R, mu = self.mu, h = self.h)
     '''
     def test_method_ID(self):
         method = 33
-        oneD = D1.OneDim(method = method, q = self.q, n = self.n, x = self.x, t = self.t, al = self.al, D_eff = self.D_eff, m0 = self.m0, c0 = self.c0, c1 = self.c1, R = self.R, mu = self.mu, h = self.h)
         with pytest.raises(ValueError):
-            oneD.transport()
+            D1.transport(method = method, q = self.q, n = self.n, x = self.x, t = self.t, al = self.al, D_eff = self.D_eff, m0 = self.m0, c0 = self.c0, c1 = self.c1, R = self.R, mu = self.mu, h = self.h)
+
 

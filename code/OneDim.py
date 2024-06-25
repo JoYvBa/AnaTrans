@@ -20,7 +20,7 @@ class OneDim:
     method : Int
         Integer representing the initial and boundary condition scenarios. See methods section for which scenarios are available and corresponding values for method.
     q : Float
-        Darcy velocity (specific discharge), units in unit distance per unit time [L/T]
+        Darcy velocity (specific discharge), in unit distance per unit time [L/T]
     n : Float
         Porosity of porous medium [-]
     x : Array
@@ -70,16 +70,15 @@ class OneDim:
     
     Example 
     -------
-    (improve so everything is not on the same line)
     
-    import OneDim as D1
-    import numpy as np
-    
-    x = np.linspace(0,200,101)
-    t = np.linspace(0,1500,101)
-
-    oneD = D1.OneDim(method = 1, q = 0.05, n = 0.33, x = x, t = t, al = 1, D_eff = 1e-4, m0 = 100, R = 1, mu = 0)
-    results = oneD.transport()
+    >>> import OneDim as D1
+    >>> import numpy as np
+    >>>
+    >>> x = np.linspace(0,200,101)
+    >>> t = np.linspace(0,1500,101)
+    >>>
+    >>> oneD = D1.OneDim(method = 1, q = 0.05, n = 0.33, x = x, t = t, al = 1, D_eff = 1e-4, m0 = 100, R = 1, mu = 0)
+    >>> results = oneD.transport()
     """
     
     
@@ -160,7 +159,7 @@ class OneDim:
         return(results)
     
     # Streamline this with a dictionary!
-    def transport(self):
+    def methods(self):
         if self.method == 1:
             return self.inf_flow_pulse()
         elif self.method == 2:
@@ -178,6 +177,76 @@ class OneDim:
         else:
             raise ValueError("Unknown method")
             
-            
+def transport(method, q, n, x, t, al = 0, D_eff = 0, m0 = 0, c0 = 0, c1 = 0, R = 1, mu = 0, h = 0):
+    """
+    Calculates one-dimensional analytical solutions of the Advection Dispersion Equation (ADE) for different scenarios.
+    Any units for distance, time and mass can be used, as long as they are consistant across all parameters. Output will have the same units.
+     
+    Parameters
+    ----------
+    method : Int
+        Integer representing the initial and boundary condition scenarios. See methods section for which scenarios are available and corresponding values for method.
+    q : Float
+        Darcy velocity (specific discharge), in unit distance per unit time [L/T]
+    n : Float
+        Porosity of porous medium [-]
+    x : Array
+        Distance in the x-direction from the origin [L]. Concentration will be calculated for each distance listed in the array.
+    t : Array
+        Time [T]. Concentration will be calculated for each time listed in the array.
+    al : Float, optional
+        Longitudinal dispersitivty of the porous medium, in unit distance [L], for steady flow scenarios. Default is 0.
+    D_eff : Float, optional
+        Effective molecular diffusion coefficient [L^2/T]. The default is 0.
+    m0 : Float, optional
+        Initial mass per unit area [M/L^2] for pulse injection scenarios. The default is 0.
+    c0 : Float, optional
+        Initial concentration [M/L^3] for initial or constant concentration scenarios. The default is 0.
+    c1 : Float, optional
+        Initial concentration [M/L^3] in right half of the domain for scenario 4. The default is 0.
+    R : Float, optional
+        Linear retardation factor [-]. The default is 1.
+    mu : Float, optional
+        Linear decay rate [1/T] for scenarios with decay. The default is 0.
+    h : Float, optional
+        Width [L] of block concentration for scenario 7. The default is 0.
+   
+    Methods
+    -------
+    inf_flow_pulse() :    method = 1 
+        Infinite column of porous medium with steady flow in the x-direction and a pulse input of mass per unit area m0 at t = 0.
+    inf_noflow_pulse() :  method = 2 
+        Infinite column of porous medium with no flow and a pulse input of m0 at t = 0.
+    inf_flow_half() :     method = 3
+        Infinite column of porous medium with steady flow in the x-direction and solute is present in the left half of the domain with concentration c0, at t = 0.
+    inf_flow_halfinit() : method = 4
+        Infinite column of porous medium with steady flow in the x-direction and solute with concentration c0 in the left half of the domain and concentration c1 in the right half of the domain at t = 0.
+    semi_flow_const() :   method = 5
+        Semi-infinite column of porous medium with steady flow in the x-direction and constant concentration c0 at x = 0.
+    semi_noflow_const() : method = 6
+        Semi-inifinte column of porous medium with no flow and constant concentration c0 at x = 0.
+    inf_noflow_block() :  method = 7
+        Infinite column of porous medium with no flow and a block concentration of width h and concentration c0 centered around x = 0.
+    transport() :
+        Uses the appropiate scenario depending on the value of method.
+
+    Returns
+    -------
+    results : Array
+        Two-dimensional array containing concentration values for each combination of x and t.
+    
+    Example 
+    -------
+    
+    >>> import OneDim as D1
+    >>> import numpy as np
+    >>>
+    >>> x = np.linspace(0,200,101)
+    >>> t = np.linspace(0,1500,101)
+    >>>
+    >>> oneD = D1.OneDim(method = 1, q = 0.05, n = 0.33, x = x, t = t, al = 1, D_eff = 1e-4, m0 = 100, R = 1, mu = 0)
+    >>> results = oneD.transport()
+    """
+    return(OneDim(method = method, q = q, n = n, x = x, t = t, al = al, D_eff = D_eff, m0 = m0, c0 = c0, c1 = c1, R = R, mu = mu, h = h).methods())
             
             
