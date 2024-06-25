@@ -175,8 +175,8 @@ class OneDim:
             return self.semi_noflow_const()
         elif self.method == 7:
             return self.inf_noflow_block()
-        #else:
-            #raise ValueError("Unknown method")
+        else:
+            raise ValueError("Unknown method")
             
             
             
