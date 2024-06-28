@@ -81,13 +81,15 @@ class OneDim:
     >>> results = oneD.transport()
     """
     
-    
-    def __init__(self, method, q, n, x, t, al = 0, D_eff = 0, m0 = 0, c0 = 0, c1 = 0, R = 1, mu = 0, h = 0):
+    def __init__(self, method, x, t, q = 0, n = 0, al = 0, D_eff = 0, m0 = 0, c0 = 0, c1 = 0, R = 1, mu = 0, h = 0):
         self.method = method
         self.q        = q
         self.n        = n
         # Calculate flow velocity
-        self.v        = q/n
+        try:
+            self.v    = q/n
+        except:
+            self.v    = 0
         self.x        = x
         # Transpose time array to the shape [n,1] for proper broadcasting
         self.t        = t[ : , np.newaxis]
@@ -177,7 +179,7 @@ class OneDim:
         else:
             raise ValueError("Unknown method")
             
-def transport(method, q, n, x, t, al = 0, D_eff = 0, m0 = 0, c0 = 0, c1 = 0, R = 1, mu = 0, h = 0):
+def transport(method, x, t, q = 0, n = 0, al = 0, D_eff = 0, m0 = 0, c0 = 0, c1 = 0, R = 1, mu = 0, h = 0):
     """
     Calculates one-dimensional analytical solutions of the Advection Dispersion Equation (ADE) for different scenarios.
     Any units for distance, time and mass can be used, as long as they are consistant across all parameters. Output will have the same units.

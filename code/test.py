@@ -15,6 +15,7 @@ import OneDim as D1
 # Distance units in meters
 # Weight units in grams
 
+#%%
 method = 1
 
 x_min = 0
@@ -32,7 +33,7 @@ c0 = 10
 c1 = 5
 R = 1
 mu = .001
-D_eff = 1e-4
+D_eff = 1e-9 * 3600 * 24 
 h = 1
 
 plt_nx = 5
@@ -68,4 +69,49 @@ plt.title("Breakthrough curve", fontsize = fontsize)
 plt.legend()
 plt.show()
 
+#%% Example 3 diffusion lecture
+method = 6
 
+x_min = 0
+x_max = 2
+x_nstep = 101
+t_min = 0
+t_max = 10000
+t_nstep = 101
+
+c0 = 10
+D_eff = 1e-9 * 3600 * 24 
+
+plt_t = [0 , 5 * 365, 10 * 365, 23 * 365] 
+plt_x = [1, 2]
+fontsize = 12
+
+x = np.linspace(x_min,x_max,x_nstep)
+t = np.linspace(t_min,t_max,t_nstep)
+
+results = D1.transport(method = method, x = x, t = t, D_eff = D_eff, c0 = c0)
+
+plt.figure(dpi = 300)
+
+for i in plt_t:
+    time_step = int((i / t_max) * (t_nstep -1))
+    print(time_step)
+    plt.plot(x, results[time_step, :], lw = 3, label = f"t = {np.round(i / 365, 0)} years")
+
+plt.xlabel("Distance [m]", fontsize = fontsize)
+plt.ylabel("Concentration $[g m^{-3}]$", fontsize = fontsize)
+plt.title("Concentration profile", fontsize = fontsize)
+plt.legend()
+plt.show()
+
+plt.figure(dpi = 300)
+
+for i in plt_x:
+    dist_step = int((i / x_max) * (x_nstep -1))
+    plt.plot(t, results[:, dist_step], lw = 3, label = f"x = {np.round(x[dist_step], 0)} m")
+
+plt.xlabel("Time [days]", fontsize = fontsize)
+plt.ylabel("Concentration $[g m^{-3}]$", fontsize = fontsize)
+plt.title("Breakthrough curve", fontsize = fontsize)
+plt.legend()
+plt.show()

@@ -16,12 +16,12 @@ class TestClassOneDim():
     '''
     
     def setup_method(self):
-        x_min = 0
-        x_max = 200
-        x_nstep = 51
-        t_min = 0
-        t_max = 1500
-        t_nstep = 51
+        self.x_min = 0
+        self.x_max = 200
+        self.x_nstep = 51
+        self.t_min = 0
+        self.t_max = 1500
+        self.t_nstep = 51
     
         self.q = 0.05
         self.n = 0.33
@@ -31,16 +31,29 @@ class TestClassOneDim():
         self.c1 = 5
         self.R = 1
         self.mu = 0
-        self.D_eff = 1e-4
+        self.D_eff = 1e-9 * 3600 * 24
         self.h = 1
         
-        self.x = np.linspace(x_min,x_max,x_nstep)
-        self.t = np.linspace(t_min,t_max,t_nstep)
-    '''
+        self.x = np.linspace(self.x_min,self.x_max,self.x_nstep)
+        self.t = np.linspace(self.t_min,self.t_max,self.t_nstep)
+
     def test_inf_flow_pulse(self):
-        method = 1
-        results = D1.transport(method = method, q = self.q, n = self.n, x = self.x, t = self.t, al = self.al, D_eff = self.D_eff, m0 = self.m0, R = self.R, mu = self.mu, h = self.h)
-    '''
+        method = 6
+        self.x_min = 0
+        self.x_max = 2
+        self.x_nstep = 101
+        self.t_min = 0
+        self.t_max = 10000
+        self.t_nstep = 101
+        
+        self.x = np.linspace(self.x_min,self.x_max,self.x_nstep)
+        self.t = np.linspace(self.t_min,self.t_max,self.t_nstep)
+        
+        results = D1.transport(method = method, x = self.x, t = self.t, D_eff = self.D_eff, c0 = self.c0)
+        assert all(results[1:,0] == self.c0)
+        print(results[50,25])
+        assert results[50,25] == pytest.approx(5.90636)
+
     def test_method_ID(self):
         method = 33
         with pytest.raises(ValueError):
