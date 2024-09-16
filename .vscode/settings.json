@@ -1,0 +1,4 @@
+{
+    "ruff.lineLength": 120,
+    "ruff.configuration": "/Users/jorrit/anatrans/anatrans/ruff.toml"
+}

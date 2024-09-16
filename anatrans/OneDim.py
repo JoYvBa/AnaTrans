@@ -105,7 +105,7 @@ class OneDim:
     
     # Replace q/n in methods by v
         
-    # Method 1; Infinite column with steady flow in the x-direction and with pulse injection at t = 0
+    # Method 1; Infinite column with steady flow in the x-direction and with pulse injection at 22t = 0
     def inf_flow_pulse(self):         
         initial = self.m0 / (self.R * self.n * np.sqrt((4 * np.pi * self.D * self.t) / self.R))
         exponent = np.exp((-((self.x - (self.v * self.t / self.R))**2) / (4 * np.pi * self.D * self.t / self.R)) - ((self.mu * self.t) / self.R))
@@ -250,5 +250,3 @@ def transport(method, x, t, q = 0, n = 0, al = 0, D_eff = 0, m0 = 0, c0 = 0, c1 
     >>> results = oneD.transport()
     """
     return(OneDim(method = method, q = q, n = n, x = x, t = t, al = al, D_eff = D_eff, m0 = m0, c0 = c0, c1 = c1, R = R, mu = mu, h = h).methods())
-            
-            
