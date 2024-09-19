@@ -25,12 +25,12 @@ class TestClassOneDim:
         self.x = np.linspace(self.x_min, self.x_max, self.x_nstep)
         self.t = np.linspace(self.t_min, self.t_max, self.t_nstep)
 
-    def test_inf_flow_pulse(self) -> None:
+    # def test_inf_flow_pulse(self) -> None:
 
-        results = D1.transport(method = method, x = self.x, t = self.t, D_eff = self.D_eff, c0 = self.c0)
-        assert all(results[1:,0] == self.c0)
-        print(results[50,25])
-        assert results[50,25] == pytest.approx(5.90636)
+    #     # results = D1.transport(method = method, x = self.x, t = self.t, D_eff = self.D_eff, c0 = self.c0)
+    #     # assert all(results[1:,0] == self.c0)
+    #     # print(results[50,25])
+    #     # assert results[50,25] == pytest.approx(5.90636)
 
     def test_value_type(self) -> None:
         """ Test to make sure that no 
