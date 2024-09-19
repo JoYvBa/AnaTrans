@@ -32,7 +32,9 @@ class TestClassOneDim:
         print(results[50,25])
         assert results[50,25] == pytest.approx(5.90636)
 
-    def test_value_type(self):
+    def test_value_type(self) -> None:
+        """ Test to make sure that no 
+        """
         adv = ade.cxt_1D(self.x, self.t)
         v = 'This should not work'
         with pytest.raises(ValueError):
