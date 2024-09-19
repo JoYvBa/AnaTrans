@@ -1,10 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jun 25 12:41:10 2024
+import sys
 
-@author: jorrit
-"""
+sys.path.insert(0, "/Users/jorrit/anatrans/anatrans")
 
 import ADE_eq as ade
 import numpy as np
