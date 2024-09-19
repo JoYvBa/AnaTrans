@@ -28,10 +28,7 @@ DEF_SET = {
 
 
 class cxt_1D():
-    """Bla.
-
-    Bla bla.
-    """
+    """Calculate concentration profile over length and time in 1D using the advection-disperison equation."""
 
     def __init__(
         self,
