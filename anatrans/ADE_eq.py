@@ -68,6 +68,7 @@ class cxt_1D():
             Two-dimensional array with concentration values over distance (innner dimension) and time (outer dimension).
         """
         self.settings.update(settings)
+        self.check_settings()
 
         if retardation:
             t = self.t * self.settings["R"]
@@ -97,8 +98,8 @@ class cxt_1D():
         for key, value in self.settings.items():
             if type(value) not in {float, int}:
                 msg = f"The data type of {key} must be 'float' or 'int', not {type(value)}"
-                raise Exception(msg)
+                raise ValueError(msg)
 
             if value < 0.:
                 msg = f"The value of {key} is {value}, but must be larger than or equal to 0"
-                raise Exception(msg)
+                raise ValueError(msg)
