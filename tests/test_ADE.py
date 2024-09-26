@@ -33,4 +33,4 @@ class TestClassOneDim:
         adv = ade.cxt_1D(self.x, self.t)
         v = "This should not work"
         with pytest.raises(ValueError, match=f"The data type of v must be 'float' or 'int', not {type(v)}"):
-            adv.ade(v)
+            adv.ade(v=v)
