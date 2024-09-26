@@ -29,9 +29,8 @@ class TestClassOneDim:
     #     # assert results[50,25] == pytest.approx(5.90636)
 
     def test_value_type(self) -> None:
-        """ Test to make sure that no 
-        """
+        """Test to make sure that wrong input data types are recognized."""
         adv = ade.cxt_1D(self.x, self.t)
-        v = 'This should not work'
-        with pytest.raises(ValueError):
+        v = "This should not work"
+        with pytest.raises(ValueError, match=f"The data type of v must be 'float' or 'int', not {type(v)}"):
             adv.ade(v)

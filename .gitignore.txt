@@ -1,7 +1,0 @@
-*.toml
-OneDim.py
-equations_ADE.py
-scrapsheet.py
-test.py
-test_OneDim.py
-.DS_Store
