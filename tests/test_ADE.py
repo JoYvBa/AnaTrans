@@ -34,3 +34,11 @@ class TestClassOneDim:
         v = "This should not work"
         with pytest.raises(ValueError, match=f"The data type of v must be 'float' or 'int', not {type(v)}"):
             adv.ade(v=v)
+
+    def test_value_range(self) -> None:
+        """Test to make sure that negative input data is not accepted."""
+        adv = ade.cxt1D(self.x, self.t)
+        v = -0.8
+        with pytest.raises(ValueError, match=f"The value of v is {v}, but must be larger than or equal to 0"):
+            adv.ade(v=v)
+
